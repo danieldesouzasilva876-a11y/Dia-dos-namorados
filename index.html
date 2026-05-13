@@ -163,6 +163,8 @@ body::after{
 
     animation:pulse 1.5s infinite;
 
+    margin-top:20px;
+
 }
 
 .open-btn:hover{
@@ -532,6 +534,8 @@ h1{
 
     line-height:2;
 
+    max-width:900px;
+
 }
 
 /* CORAÇÕES */
@@ -746,7 +750,7 @@ h1{
 <div id="finalMensagem">
 
     <h2>
-        Obrigado por fazer parte da minha vida ❤️
+        ❤️ Obrigado por fazer parte da minha vida ❤️
     </h2>
 
     <p>
@@ -775,6 +779,10 @@ h1{
         Em qualquer universo ❤️
 
     </p>
+
+    <button onclick="fecharFinal()" class="open-btn">
+        ❤️ Voltar
+    </button>
 
 </div>
 
@@ -866,6 +874,11 @@ function abrirVideo(){
     const video =
     document.getElementById('videoPlayer');
 
+    const final =
+    document.getElementById('finalMensagem');
+
+    final.style.display = 'none';
+
     tela.style.display = 'flex';
 
     video.currentTime = 0;
@@ -875,6 +888,16 @@ function abrirVideo(){
     if(video.requestFullscreen){
         video.requestFullscreen();
     }
+
+    /* FINAL AUTOMÁTICO */
+
+    video.onended = () => {
+
+        tela.style.display = 'none';
+
+        final.style.display = 'flex';
+
+    };
 
 }
 
@@ -889,6 +912,12 @@ function fecharVideo(){
     tela.style.display = 'none';
 
     video.pause();
+
+}
+
+function fecharFinal(){
+
+    document.getElementById('finalMensagem').style.display = 'none';
 
 }
 
