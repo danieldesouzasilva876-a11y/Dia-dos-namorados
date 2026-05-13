@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="UTF-8">
@@ -23,21 +24,25 @@ body{
 }
 
 /* ========================= */
-/* TELA INICIAL */
+/* INTRO */
 /* ========================= */
 
 #intro{
     position:fixed;
     width:100%;
     height:100vh;
+
     background:
-    linear-gradient(to bottom, #000000dd, #000000),
+    linear-gradient(to bottom, #000000cc, #000000),
     url('Foto1.jpg') center/cover;
+
     display:flex;
     justify-content:center;
     align-items:center;
     flex-direction:column;
+
     z-index:9999;
+
     transition:1s;
 }
 
@@ -49,16 +54,25 @@ body{
 }
 
 .open-btn{
+
     padding:18px 40px;
+
     border:none;
     border-radius:10px;
-    font-size:1.2rem;
-    cursor:pointer;
+
     background:#E50914;
     color:white;
+
+    font-size:1.2rem;
+
+    cursor:pointer;
+
     transition:0.3s;
-    box-shadow:0 0 25px rgba(229,9,20,0.7);
+
+    box-shadow:0 0 25px rgba(229,9,20,0.8);
+
     animation:pulse 1.5s infinite;
+
 }
 
 .open-btn:hover{
@@ -86,20 +100,31 @@ body{
 /* ========================= */
 
 .nav{
+
     position:absolute;
+
     top:0;
     width:100%;
+
     padding:25px 50px;
+
     display:flex;
     justify-content:space-between;
+
     z-index:100;
+
 }
 
 .logo{
+
     color:#E50914;
+
     font-size:2.5rem;
+
     font-weight:bold;
+
     letter-spacing:2px;
+
 }
 
 /* ========================= */
@@ -107,7 +132,9 @@ body{
 /* ========================= */
 
 .banner{
+
     position:relative;
+
     min-height:100vh;
 
     background:
@@ -118,7 +145,9 @@ body{
 
     display:flex;
     align-items:center;
+
     padding:60px;
+
 }
 
 .content{
@@ -127,35 +156,59 @@ body{
 }
 
 .netflix{
+
     color:#E50914;
+
     letter-spacing:5px;
+
     margin-bottom:10px;
+
 }
 
 h1{
+
     font-size:5rem;
+
     margin-bottom:20px;
+
 }
 
 .subtitle{
+
     color:#ff4d6d;
+
     font-size:1.5rem;
+
     margin-bottom:30px;
+
 }
 
+/* BOTÕES */
+
 .buttons{
+
     display:flex;
+
     gap:15px;
+
     margin-bottom:35px;
+
 }
 
 .btn{
+
     padding:15px 28px;
+
     border:none;
+
     border-radius:5px;
+
     font-size:1rem;
+
     cursor:pointer;
+
     transition:0.3s;
+
 }
 
 .play{
@@ -179,20 +232,31 @@ h1{
 /* TEXTO */
 
 .text{
+
     font-size:1.2rem;
+
     line-height:1.9;
+
     color:#ddd;
-    min-height:400px;
+
+    min-height:450px;
+
     white-space:pre-line;
+
 }
 
 /* CONTADOR */
 
 .counter{
+
     margin-top:35px;
+
     color:#ffb3c1;
+
     line-height:1.8;
+
     font-size:1.1rem;
+
 }
 
 /* GALERIA */
@@ -207,18 +271,29 @@ h1{
 }
 
 .cards{
+
     display:flex;
+
     gap:15px;
+
     overflow-x:auto;
+
 }
 
 .card{
+
     min-width:240px;
+
     height:140px;
+
     border-radius:10px;
+
     overflow:hidden;
+
     position:relative;
+
     transition:0.3s;
+
 }
 
 .card:hover{
@@ -226,50 +301,75 @@ h1{
 }
 
 .card img{
+
     width:100%;
     height:100%;
+
     object-fit:cover;
+
 }
 
 .card span{
+
     position:absolute;
+
     bottom:10px;
     left:10px;
+
     font-weight:bold;
+
     font-size:1rem;
+
 }
 
 /* CORAÇÕES */
 
 .heart{
+
     position:fixed;
+
     color:#ff4d6d;
-    animation: subir linear infinite;
+
     opacity:0.7;
+
     z-index:999;
+
+    animation:subir linear infinite;
+
 }
 
 @keyframes subir{
 
     from{
+
         transform:translateY(100vh);
+
         opacity:0;
+
     }
 
     to{
+
         transform:translateY(-120px);
+
         opacity:1;
+
     }
 
 }
 
-/* AUDIO */
+/* PLAYER */
 
 audio{
+
     position:fixed;
+
     bottom:10px;
+
     right:10px;
+
     z-index:9999;
+
 }
 
 /* RESPONSIVO */
@@ -431,17 +531,36 @@ audio{
 <!-- MÚSICA -->
 <!-- ========================= -->
 
-<audio id="music" loop>
+<audio id="music" autoplay loop controls>
+
     <source src="Música.mp3" type="audio/mpeg">
+
 </audio>
 
 <script>
 
 /* ========================= */
-/* ABRIR SITE */
+/* ABRIR SITE + TOCAR MÚSICA */
 /* ========================= */
 
 function abrirSite(){
+
+    const musica =
+    document.getElementById("music");
+
+    musica.volume = 0.5;
+
+    musica.play()
+    .then(() => {
+
+        console.log("Música tocando");
+
+    })
+    .catch((erro) => {
+
+        console.log("Erro ao tocar:", erro);
+
+    });
 
     document.getElementById("intro").style.opacity = "0";
 
@@ -450,8 +569,6 @@ function abrirSite(){
         document.getElementById("intro").style.display = "none";
 
     }, 1000);
-
-    document.getElementById("music").play();
 
 }
 
@@ -462,13 +579,14 @@ function abrirSite(){
 const texto = `
 
 Nossa história começou no dia 10 de janeiro, com uma simples mensagem:
-"Reagiu ao seu story 😍".
+"Reagiu ao seu story 😍"
 
 Era um sábado, às 11h53 da manhã.
 E foi exatamente nesse momento que começou a minha série favorita ❤️
 A nossa história.
 
 Começamos a conversar e, a cada dia que passava, o seu jeitinho marcante me deixava ainda mais apaixonado.
+
 Lembro de cada detalhe.
 Lembro do nosso primeiro assunto: "cadastro".
 Lembro da primeira foto que você me enviou.
@@ -478,6 +596,7 @@ Porque cada detalhe seu ficou marcado no meu coração.
 
 Meu amor...
 Dia 8 de fevereiro foi o primeiro capítulo da nossa história oficialmente juntos ❤️
+
 Foi o dia em que demos o primeiro passo:
 o nosso namoro.
 
@@ -497,6 +616,7 @@ tudo isso ficou guardado dentro de mim de um jeito impossível de explicar.
 
 Esse site está sendo criado no dia 13/05/2026.
 Mas acredito que você só verá tudo isso no dia 12 de junho ❤️
+
 Porque ele foi feito especialmente para o nosso dia:
 o Dia dos Namorados.
 
@@ -523,7 +643,8 @@ function escrever(){
 
     if(i < texto.length){
 
-        document.getElementById("typing").innerHTML += texto.charAt(i);
+        document.getElementById("typing").innerHTML +=
+        texto.charAt(i);
 
         i++;
 
@@ -536,7 +657,7 @@ function escrever(){
 escrever();
 
 /* ========================= */
-/* CONTADOR */
+/* CONTADORES */
 /* ========================= */
 
 function atualizarContador(){
