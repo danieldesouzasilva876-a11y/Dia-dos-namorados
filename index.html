@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="UTF-8">
@@ -13,7 +14,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 html{
@@ -76,8 +77,6 @@ body::after{
 
     z-index:999999999;
 
-    flex-direction:column;
-
 }
 
 .netflixLogo{
@@ -90,25 +89,9 @@ body::after{
 
     letter-spacing:10px;
 
-    animation:logoAnim 3s forwards;
-
     text-shadow:0 0 40px rgba(229,9,20,0.8);
 
-}
-
-.tudum{
-
-    margin-top:20px;
-
-    font-size:1.5rem;
-
-    letter-spacing:8px;
-
-    opacity:0;
-
-    animation:tudumAnim 2s forwards;
-
-    animation-delay:1.5s;
+    animation:logoAnim 3s forwards;
 
 }
 
@@ -126,20 +109,8 @@ body::after{
 
 }
 
-@keyframes tudumAnim{
-
-    from{
-        opacity:0;
-    }
-
-    to{
-        opacity:1;
-    }
-
-}
-
 /* ========================= */
-/* INTRO SURPRESA */
+/* INTRO */
 /* ========================= */
 
 #intro{
@@ -405,22 +376,6 @@ h1{
 
     font-size:1rem;
 
-    animation:fadeFrase 1s;
-
-}
-
-@keyframes fadeFrase{
-
-    from{
-        opacity:0;
-        transform:translateY(-10px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
 }
 
 /* ========================= */
@@ -443,8 +398,6 @@ h1{
     gap:15px;
 
     overflow-x:auto;
-
-    padding-bottom:10px;
 
 }
 
@@ -489,33 +442,6 @@ h1{
     font-weight:bold;
 
     font-size:1rem;
-
-}
-
-/* ========================= */
-/* MODAL FOTO */
-/* ========================= */
-
-#mensagemFoto{
-
-    position:fixed;
-
-    bottom:80px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    background:rgba(0,0,0,0.85);
-
-    padding:18px 25px;
-
-    border-radius:12px;
-
-    z-index:999999;
-
-    display:none;
-
-    color:#fff;
 
 }
 
@@ -688,9 +614,9 @@ h1{
 
 <div id="netflixIntro">
 
-    <div class="netflixLogo">NETFLIX</div>
-
-    
+    <div class="netflixLogo">
+        NETFLIX
+    </div>
 
 </div>
 
@@ -778,37 +704,37 @@ h1{
 
     <div class="cards">
 
-        <div class="card" onclick="mostrarMensagem('Foi aqui que tudo começou ❤️')">
+        <div class="card">
             <img src="Foto1.jpg">
             <span>Nosso começo</span>
         </div>
 
-        <div class="card" onclick="mostrarMensagem('Seu sorriso mudou meus dias ❤️')">
+        <div class="card">
             <img src="Foto2.jpg">
             <span>Seu sorriso</span>
         </div>
 
-        <div class="card" onclick="mostrarMensagem('Você é minha paz ❤️')">
+        <div class="card">
             <img src="Foto3.jpg">
             <span>Minha paz</span>
         </div>
 
-        <div class="card" onclick="mostrarMensagem('Meu lugar favorito é ao seu lado ❤️')">
+        <div class="card">
             <img src="Foto4.jpg">
             <span>Meu amor</span>
         </div>
 
-        <div class="card" onclick="mostrarMensagem('Eu escolheria você todas as vezes ❤️')">
+        <div class="card">
             <img src="Foto5.jpg">
             <span>Você ❤️</span>
         </div>
 
-        <div class="card" onclick="mostrarMensagem('Nós somos minha história favorita ❤️')">
+        <div class="card">
             <img src="Foto6.jpg">
             <span>Nós ❤️</span>
         </div>
 
-        <div class="card" onclick="mostrarMensagem('Pra sempre eu e você ❤️')">
+        <div class="card">
             <img src="Foto7.jpg">
             <span>Pra sempre</span>
         </div>
@@ -816,10 +742,6 @@ h1{
     </div>
 
 </section>
-
-<!-- MENSAGEM FOTO -->
-
-<div id="mensagemFoto"></div>
 
 <!-- VIDEO -->
 
@@ -868,18 +790,13 @@ h1{
 
 window.onload = () => {
 
-    const tudum =
-    document.getElementById('tudumAudio');
-
-    tudum.play();
-
     setTimeout(() => {
 
         document.getElementById('netflixIntro').style.display = 'none';
 
         document.getElementById('intro').style.display = 'flex';
 
-    }, 4000);
+    }, 3000);
 
 };
 
@@ -887,12 +804,23 @@ window.onload = () => {
 
 function abrirSite(){
 
+    /* TUNDUM */
+
+    const tudum =
+    document.getElementById('tudumAudio');
+
+    tudum.volume = 1;
+
+    tudum.play();
+
+    /* MÚSICA */
+
     const musica =
     document.getElementById('music');
 
-    musica.play();
-
     musica.volume = 0;
+
+    musica.play();
 
     let volume = 0;
 
@@ -911,6 +839,8 @@ function abrirSite(){
         }
 
     }, 200);
+
+    /* FECHAR INTRO */
 
     document.getElementById('intro').style.opacity = '0';
 
@@ -958,17 +888,6 @@ function fecharVideo(){
 
 }
 
-/* FINAL VÍDEO */
-
-const video =
-document.getElementById('videoPlayer');
-
-video.addEventListener('ended', () => {
-
-    document.getElementById('finalMensagem').style.display = 'flex';
-
-});
-
 /* TEXTO */
 
 const texto = `
@@ -978,26 +897,21 @@ Nossa história começou no dia 10 de janeiro, com uma simples mensagem:
 
 Era um sábado, às 11h53 da manhã.
 E foi exatamente nesse momento que começou a minha série favorita ❤️
+
 A nossa história.
 
 Começamos a conversar e, a cada dia que passava, o seu jeitinho marcante me deixava ainda mais apaixonado.
 
 Lembro de cada detalhe.
-Lembro do nosso primeiro assunto: "cadastro".
+Lembro do nosso primeiro assunto.
 Lembro da primeira foto que você me enviou.
 Lembro de tudo.
 
-Porque cada detalhe seu ficou marcado no meu coração.
+Porque cada detalhe seu ficou marcado no meu coração ❤️
 
-Meu amor...
-Dia 8 de fevereiro foi o primeiro capítulo da nossa história oficialmente juntos ❤️
-
-Foi o dia em que demos o primeiro passo:
-o nosso namoro.
+Dia 8 de fevereiro foi o primeiro capítulo da nossa história oficialmente juntos.
 
 Desde então, eu vivo com um sorriso no rosto.
-Ganhei um compromisso, uma responsabilidade, mas principalmente...
-ganhei você.
 
 Você é minha paz,
 meu lugar favorito,
@@ -1131,25 +1045,6 @@ function mostrarFrase(){
 }
 
 setInterval(mostrarFrase, 4000);
-
-/* MENSAGEM FOTO */
-
-function mostrarMensagem(texto){
-
-    const box =
-    document.getElementById('mensagemFoto');
-
-    box.style.display = 'block';
-
-    box.innerHTML = texto;
-
-    setTimeout(() => {
-
-        box.style.display = 'none';
-
-    }, 3000);
-
-}
 
 </script>
 
