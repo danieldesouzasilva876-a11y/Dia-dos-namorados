@@ -542,6 +542,123 @@ h1{
 
 }
 
+/* SLIDESHOW */
+
+#slideshow{
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:black;
+
+    display:none;
+    justify-content:center;
+    align-items:center;
+
+    z-index:999999;
+
+}
+
+#slideImg{
+
+    width:90%;
+    max-width:900px;
+
+    border-radius:15px;
+
+}
+
+/* TIMELINE */
+
+#timeline{
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:black;
+
+    overflow:auto;
+
+    padding:100px 20px;
+
+    display:none;
+
+    z-index:999999;
+
+    text-align:center;
+
+}
+
+.timeline-item{
+
+    margin-bottom:50px;
+
+}
+
+.timeline-item img{
+
+    width:90%;
+    max-width:500px;
+
+    border-radius:15px;
+
+    margin-bottom:15px;
+
+}
+
+/* QUIZ */
+
+#quiz{
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:black;
+
+    overflow:auto;
+
+    padding:100px 20px;
+
+    display:none;
+
+    z-index:999999;
+
+    text-align:center;
+
+}
+
+.quizBox button{
+
+    padding:15px 25px;
+
+    margin:10px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#E50914;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:1rem;
+
+}
+
 /* CORAÇÕES */
 
 .heart{
@@ -670,6 +787,18 @@ h1{
                 ❤️ Carta secreta
             </button>
 
+            <button class="btn list" onclick="abrirSlideshow()">
+                📸 Favoritos
+            </button>
+
+            <button class="btn list" onclick="abrirTimeline()">
+                ⏳ Linha do Tempo
+            </button>
+
+            <button class="btn list" onclick="abrirQuiz()">
+                ❤️ Quiz
+            </button>
+
         </div>
 
         <div class="text" id="typing"></div>
@@ -723,6 +852,84 @@ h1{
         <source src="video.mp4" type="video/mp4">
 
     </video>
+
+</div>
+
+<!-- SLIDESHOW -->
+
+<div id="slideshow">
+
+    <button class="fecharVideo" onclick="fecharSlideshow()">
+        ✖
+    </button>
+
+    <img id="slideImg" src="Foto1.jpg">
+
+</div>
+
+<!-- TIMELINE -->
+
+<div id="timeline">
+
+    <button class="fecharVideo" onclick="fecharTimeline()">
+        ✖
+    </button>
+
+    <h2>⏳ Nossa Linha do Tempo ❤️</h2>
+
+    <div class="timeline-item">
+        <img src="Foto21.jpg">
+        <h3>10 de Janeiro ❤️</h3>
+        <p>Primeira conversa às 11h53</p>
+    </div>
+
+    <div class="timeline-item">
+        <img src="Foto22.jpg">
+        <h3>8 de Fevereiro ❤️</h3>
+        <p>O início do nosso namoro</p>
+    </div>
+
+    <div class="timeline-item">
+        <img src="Foto23.jpg">
+        <h3>Primeiro encontro ❤️</h3>
+        <p>Um dos melhores dias da minha vida</p>
+    </div>
+
+</div>
+
+<!-- QUIZ -->
+
+<div id="quiz">
+
+    <button class="fecharVideo" onclick="fecharQuiz()">
+        ✖
+    </button>
+
+    <h2>❤️ Quiz do Nosso Amor ❤️</h2>
+
+    <div class="quizBox">
+
+        <p>1. Quem é a pessoa mais linda do mundo?</p>
+
+        <button onclick="respostaQuiz()">Júlia ❤️</button>
+
+        <p>2. Qual é minha série favorita?</p>
+
+        <button onclick="respostaQuiz()">Nossa história ❤️</button>
+
+        <p>3. Quem eu escolheria em milhões?</p>
+
+        <button onclick="respostaQuiz()">Você ❤️</button>
+
+        <p>4. Qual foi o dia do nosso namoro?</p>
+
+        <button onclick="respostaQuiz()">8 de fevereiro ❤️</button>
+
+        <p>5. Quando começou nossa conversa?</p>
+
+        <button onclick="respostaQuiz()">10 de janeiro às 11h53 ❤️</button>
+
+    </div>
 
 </div>
 
@@ -1134,6 +1341,90 @@ function mostrarFrase(){
 mostrarFrase();
 
 setInterval(mostrarFrase, 4000);
+
+/* SLIDESHOW */
+
+const fotos = [];
+
+for(let i = 1; i <= 20; i++){
+
+    fotos.push(`Foto${i}.jpg`);
+
+}
+
+let slideAtual = 0;
+let slideInterval;
+
+function abrirSlideshow(){
+
+    document.getElementById('slideshow').style.display = 'flex';
+
+    trocarFoto();
+
+    slideInterval = setInterval(() => {
+
+        slideAtual++;
+
+        if(slideAtual >= fotos.length){
+
+            slideAtual = 0;
+
+        }
+
+        trocarFoto();
+
+    }, 2000);
+
+}
+
+function trocarFoto(){
+
+    document.getElementById('slideImg').src =
+    fotos[slideAtual];
+
+}
+
+function fecharSlideshow(){
+
+    document.getElementById('slideshow').style.display = 'none';
+
+    clearInterval(slideInterval);
+
+}
+
+/* TIMELINE */
+
+function abrirTimeline(){
+
+    document.getElementById('timeline').style.display = 'block';
+
+}
+
+function fecharTimeline(){
+
+    document.getElementById('timeline').style.display = 'none';
+
+}
+
+/* QUIZ */
+
+function abrirQuiz(){
+
+    document.getElementById('quiz').style.display = 'block';
+
+}
+
+function fecharQuiz(){
+
+    document.getElementById('quiz').style.display = 'none';
+
+}
+
+function respostaQuiz(){
+
+    alert('❤️ Resposta perfeita ❤️');
+
+}
 
 </script>
 
