@@ -15,6 +15,7 @@
     padding:0;
     box-sizing:border-box;
     font-family:Arial, Helvetica, sans-serif;
+    cursor:none;
 }
 
 html{
@@ -27,30 +28,32 @@ body{
     overflow-x:hidden;
 }
 
-/* FUNDO */
+/* CURSOR */
 
-body::before,
-body::after{
+#cursor{
 
-    content:'';
+    width:25px;
+    height:25px;
 
     position:fixed;
 
-    width:100%;
-    height:35px;
+    border-radius:50%;
 
-    background:black;
+    background:#ff2d55;
 
-    z-index:99999999;
+    pointer-events:none;
+
+    z-index:999999999;
+
+    box-shadow:0 0 20px #ff2d55;
+
+    transform:translate(-50%,-50%);
 
 }
 
-body::before{ top:0; }
-body::after{ bottom:0; }
+/* LOADING */
 
-/* INTRO NETFLIX */
-
-#netflixIntro{
+#loadingScreen{
 
     position:fixed;
 
@@ -67,23 +70,46 @@ body::after{ bottom:0; }
     align-items:center;
     flex-direction:column;
 
-    z-index:999999999;
+    z-index:9999999999;
 
 }
 
-.netflixLogo{
+.loadingLogo{
 
     color:#E50914;
 
-    font-size:6rem;
+    font-size:5rem;
 
     font-weight:bold;
 
-    letter-spacing:10px;
+    animation:pulse 1.5s infinite;
 
-    text-shadow:0 0 40px rgba(229,9,20,0.8);
+}
 
-    animation:logoAnim 3s forwards;
+.loadingBar{
+
+    width:300px;
+    height:6px;
+
+    background:#222;
+
+    margin-top:30px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.loadingProgress{
+
+    width:0%;
+
+    height:100%;
+
+    background:#E50914;
+
+    animation:loading 4s forwards;
 
 }
 
@@ -93,22 +119,18 @@ body::after{ bottom:0; }
 
     color:#aaa;
 
-    font-size:1rem;
-
     letter-spacing:3px;
 
 }
 
-@keyframes logoAnim{
+@keyframes loading{
 
-    0%{
-        transform:scale(0.5);
-        opacity:0;
+    from{
+        width:0%;
     }
 
-    100%{
-        transform:scale(1);
-        opacity:1;
+    to{
+        width:100%;
     }
 
 }
@@ -118,9 +140,6 @@ body::after{ bottom:0; }
 #perfilScreen{
 
     position:fixed;
-
-    top:0;
-    left:0;
 
     width:100%;
     height:100vh;
@@ -139,9 +158,9 @@ body::after{ bottom:0; }
 
 .perfil{
 
-    cursor:pointer;
-
     text-align:center;
+
+    cursor:pointer;
 
     transition:0.3s;
 
@@ -156,11 +175,11 @@ body::after{ bottom:0; }
     width:180px;
     height:180px;
 
-    object-fit:cover;
-
-    border-radius:15px;
+    border-radius:20px;
 
     border:4px solid #E50914;
+
+    object-fit:cover;
 
 }
 
@@ -199,9 +218,9 @@ body::after{ bottom:0; }
 
     font-size:2.5rem;
 
-    text-align:center;
-
     margin-bottom:30px;
+
+    text-align:center;
 
 }
 
@@ -219,14 +238,14 @@ body::after{ bottom:0; }
 
     font-size:1.2rem;
 
-    cursor:pointer;
-
     transition:0.3s;
-
-    box-shadow:0 0 30px rgba(229,9,20,0.7);
 
     animation:pulse 1.5s infinite;
 
+}
+
+.open-btn:hover{
+    transform:scale(1.05);
 }
 
 @keyframes pulse{
@@ -271,23 +290,14 @@ body::after{ bottom:0; }
 
     background:
     linear-gradient(to right,
-    rgba(0,0,0,0.96) 20%,
-    rgba(0,0,0,0.35)),
+    rgba(0,0,0,0.95) 20%,
+    rgba(0,0,0,0.4)),
     url('Foto2.jpg') center/cover no-repeat;
 
     display:flex;
     align-items:center;
 
     padding:60px;
-
-    animation:zoomBg 20s infinite alternate;
-
-}
-
-@keyframes zoomBg{
-
-    from{ background-size:100%; }
-    to{ background-size:110%; }
 
 }
 
@@ -323,15 +333,17 @@ h1{
 
 }
 
+/* BOTÕES */
+
 .buttons{
 
     display:flex;
 
     gap:15px;
 
-    margin-bottom:35px;
-
     flex-wrap:wrap;
+
+    margin-bottom:35px;
 
 }
 
@@ -345,10 +357,12 @@ h1{
 
     font-size:1rem;
 
-    cursor:pointer;
-
     transition:0.3s;
 
+}
+
+.btn:hover{
+    transform:scale(1.05);
 }
 
 .play{
@@ -366,8 +380,14 @@ h1{
     color:white;
 }
 
-.btn:hover{
-    transform:scale(1.05);
+.timelineBtn{
+    background:#ff2d55;
+    color:white;
+}
+
+.quizBtn{
+    background:#7928ca;
+    color:white;
 }
 
 /* TEXTO */
@@ -392,28 +412,19 @@ h1{
 
     color:#ffb3c1;
 
-    line-height:1.8;
+    line-height:2;
 
 }
 
-/* FRASES */
+/* CONTADOR ESPECIAL */
 
-#fraseFlutuante{
+.specialCounter{
 
-    position:fixed;
+    margin-top:20px;
 
-    top:80px;
-    right:20px;
+    color:#ff4d6d;
 
-    background:rgba(0,0,0,0.7);
-
-    padding:15px 20px;
-
-    border-radius:10px;
-
-    color:#ffb3c1;
-
-    z-index:999999;
+    font-size:1rem;
 
 }
 
@@ -442,12 +453,6 @@ h1{
 
     overflow:hidden;
 
-    transition:0.3s;
-
-}
-
-.card:hover{
-    transform:scale(1.08);
 }
 
 .card img{
@@ -459,86 +464,42 @@ h1{
 
 }
 
-/* GALERIA FULL */
+/* CHUVA DE FOTOS */
 
-#galeriaFavorita{
+.fotoChuva{
 
     position:fixed;
 
-    top:0;
-    left:0;
+    top:-200px;
 
-    width:100%;
-    height:100vh;
-
-    background:black;
-
-    display:none;
-
-    justify-content:center;
-    align-items:center;
-
-    z-index:999999999;
-
-}
-
-#slideFoto{
-
-    width:100%;
-    height:100%;
+    width:120px;
+    height:160px;
 
     object-fit:cover;
 
-    animation:zoomFoto 2s linear;
+    border-radius:10px;
+
+    opacity:0.15;
+
+    z-index:1;
+
+    animation:cair linear forwards;
 
 }
 
-@keyframes zoomFoto{
-
-    from{
-        transform:scale(1);
-    }
+@keyframes cair{
 
     to{
-        transform:scale(1.05);
+        transform:translateY(120vh) rotate(360deg);
     }
 
 }
 
-.fecharGaleria{
+/* TIMELINE */
 
-    position:absolute;
-
-    top:40px;
-    right:30px;
-
-    width:55px;
-    height:55px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#E50914;
-
-    color:white;
-
-    font-size:1.2rem;
-
-    cursor:pointer;
-
-    z-index:99999999;
-
-}
-
-/* VIDEO */
-
-#videoScreen{
+#timelineScreen{
 
     position:fixed;
-
-    top:0;
-    left:0;
 
     width:100%;
     height:100vh;
@@ -552,89 +513,87 @@ h1{
 
     flex-direction:column;
 
-    z-index:999999;
+    z-index:999999999;
 
 }
 
-#cinemaText{
+.timeline{
 
-    position:absolute;
+    border-left:4px solid #E50914;
 
-    top:50%;
-
-    transform:translateY(-50%);
-
-    font-size:2rem;
-
-    color:white;
-
-    z-index:9999999;
-
-    animation:fadeCinema 3s forwards;
+    padding-left:30px;
 
 }
 
-@keyframes fadeCinema{
+.timeline div{
 
-    0%{
-        opacity:0;
-    }
+    margin:30px 0;
 
-    20%{
-        opacity:1;
-    }
-
-    80%{
-        opacity:1;
-    }
-
-    100%{
-        opacity:0;
-    }
+    font-size:1.3rem;
 
 }
 
-#videoPlayer{
+/* QUIZ */
 
-    width:90%;
-    max-width:1200px;
+#quizScreen{
 
-    border-radius:10px;
+    position:fixed;
+
+    width:100%;
+    height:100vh;
+
+    background:black;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+    z-index:999999999;
+
+    padding:20px;
+
+    text-align:center;
 
 }
 
-.fecharVideo{
+.quizBox{
 
-    position:absolute;
+    max-width:700px;
 
-    top:40px;
-    right:30px;
+}
 
-    width:50px;
-    height:50px;
+.quizBox h2{
+
+    margin-bottom:30px;
+
+}
+
+.quizBox button{
+
+    margin:10px;
+
+    padding:15px 25px;
 
     border:none;
 
-    border-radius:50%;
+    border-radius:10px;
 
     background:#E50914;
 
     color:white;
 
-    cursor:pointer;
-
 }
 
-/* FINAL */
+/* CARTA */
 
-#finalMensagem{
+#carta{
 
     display:none;
 
     position:fixed;
-
-    top:0;
-    left:0;
 
     width:100%;
     height:100vh;
@@ -654,15 +613,7 @@ h1{
 
 }
 
-#finalMensagem h2{
-
-    font-size:3rem;
-
-    margin-bottom:20px;
-
-}
-
-#finalMensagem p{
+#carta p{
 
     max-width:900px;
 
@@ -674,31 +625,30 @@ h1{
 
 }
 
-/* CORAÇÕES */
+/* VIDEO */
 
-.heart{
+#videoScreen{
 
     position:fixed;
 
-    color:#ff4d6d;
+    width:100%;
+    height:100vh;
 
-    animation:subir linear infinite;
+    background:black;
 
-    opacity:0.8;
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:99999999;
 
 }
 
-@keyframes subir{
+#videoPlayer{
 
-    from{
-        transform:translateY(100vh);
-        opacity:0;
-    }
-
-    to{
-        transform:translateY(-120px);
-        opacity:1;
-    }
+    width:90%;
+    max-width:1200px;
 
 }
 
@@ -726,12 +676,18 @@ h1{
 
 <body>
 
-<!-- INTRO NETFLIX -->
+<div id="cursor"></div>
 
-<div id="netflixIntro">
+<!-- LOADING -->
 
-    <div class="netflixLogo">
+<div id="loadingScreen">
+
+    <div class="loadingLogo">
         NETFLIX
+    </div>
+
+    <div class="loadingBar">
+        <div class="loadingProgress"></div>
     </div>
 
     <div class="loadingText">
@@ -768,10 +724,6 @@ h1{
 
 </div>
 
-<!-- FRASES -->
-
-<div id="fraseFlutuante"></div>
-
 <!-- NAV -->
 
 <div class="nav">
@@ -806,12 +758,20 @@ h1{
                 ▶ Assistir
             </button>
 
-            <button class="btn list" onclick="abrirGaleria()">
+            <button class="btn list">
                 ❤️ Favorito
             </button>
 
             <button class="btn secret" onclick="abrirCarta()">
                 🔒 Carta secreta
+            </button>
+
+            <button class="btn timelineBtn" onclick="abrirTimeline()">
+                ⏳ Linha do tempo
+            </button>
+
+            <button class="btn quizBtn" onclick="abrirQuiz()">
+                🎮 Quiz
             </button>
 
         </div>
@@ -830,6 +790,14 @@ h1{
 
         </div>
 
+        <div class="specialCounter">
+
+            ❤️ 999999 pensamentos em você  
+            ❤️ 99999 saudades suas  
+            ❤️ infinito amor por você  
+
+        </div>
+
     </div>
 
 </section>
@@ -837,8 +805,6 @@ h1{
 <!-- GALERIA -->
 
 <section class="section">
-
-    <h2>Momentos especiais ❤️</h2>
 
     <div class="cards">
 
@@ -849,50 +815,63 @@ h1{
         <div class="card"><img src="Foto5.jpg"></div>
         <div class="card"><img src="Foto6.jpg"></div>
         <div class="card"><img src="Foto7.jpg"></div>
+        <div class="card"><img src="Foto21.jpg"></div>
+        <div class="card"><img src="Foto22.jpg"></div>
+        <div class="card"><img src="Foto23.jpg"></div>
 
     </div>
 
 </section>
 
-<!-- GALERIA FULL -->
+<!-- TIMELINE -->
 
-<div id="galeriaFavorita">
+<div id="timelineScreen">
 
-    <button class="fecharGaleria" onclick="fecharGaleria()">
-        ✖
+    <div class="timeline">
+
+        <div>
+            ❤️ 10 de Janeiro — Primeira conversa
+        </div>
+
+        <div>
+            💍 8 de Fevereiro — Namoro
+        </div>
+
+        <div>
+            🥰 Primeiro encontro
+        </div>
+
+    </div>
+
+    <button class="open-btn" onclick="fecharTimeline()">
+        ❤️ Voltar
     </button>
-
-    <img id="slideFoto" src="Foto1.jpg">
 
 </div>
 
-<!-- VIDEO -->
+<!-- QUIZ -->
 
-<div id="videoScreen">
+<div id="quizScreen">
 
-    <div id="cinemaText">
-        Baseado em uma história real ❤️
+    <div class="quizBox">
+
+        <h2 id="pergunta">
+            Pergunta
+        </h2>
+
+        <div id="respostas"></div>
+
     </div>
-
-    <button class="fecharVideo" onclick="fecharVideo()">
-        ✖
-    </button>
-
-    <video id="videoPlayer" controls>
-
-        <source src="video.mp4" type="video/mp4">
-
-    </video>
 
 </div>
 
 <!-- CARTA -->
 
-<div id="finalMensagem">
+<div id="carta">
 
-    <h2>
-        ❤️ Uma carta para você ❤️
-    </h2>
+    <h1>
+        ❤️ Carta para você ❤️
+    </h1>
 
     <p>
 
@@ -900,24 +879,31 @@ h1{
 
         eu escolheria você todas as vezes ❤️
 
-        Porque foi no seu abraço que eu encontrei paz.
+        Porque foi no seu abraço que encontrei paz.
         Foi no seu sorriso que encontrei felicidade.
-        E foi no seu coração que encontrei meu lugar favorito.
 
         Você mudou meus dias,
-        meus pensamentos,
+        meu coração,
         meu futuro
-        e até meu jeito de sorrir.
-
-        Obrigado por existir.
-        Obrigado por me amar.
-        Obrigado por ser você ❤️
+        e a minha vida ❤️
 
     </p>
 
     <button class="open-btn" onclick="fecharCarta()">
         ❤️ Voltar
     </button>
+
+</div>
+
+<!-- VIDEO -->
+
+<div id="videoScreen">
+
+    <video id="videoPlayer" controls>
+
+        <source src="video.mp4" type="video/mp4">
+
+    </video>
 
 </div>
 
@@ -933,25 +919,40 @@ h1{
 
 <script>
 
-/* INTRO */
+/* LOADING */
 
 window.onload = () => {
 
     setTimeout(() => {
 
-        document.getElementById('netflixIntro').style.display = 'none';
+        document.getElementById('loadingScreen').style.display = 'none';
 
         document.getElementById('perfilScreen').style.display = 'flex';
 
-    }, 3000);
+    },4000);
 
 };
 
+/* CURSOR */
+
+const cursor =
+document.getElementById('cursor');
+
+document.addEventListener('mousemove', e => {
+
+    cursor.style.left = e.clientX + 'px';
+
+    cursor.style.top = e.clientY + 'px';
+
+});
+
+/* PERFIL */
+
 function abrirIntro(){
 
-    document.getElementById('perfilScreen').style.display = 'none';
+    document.getElementById('perfilScreen').style.display='none';
 
-    document.getElementById('intro').style.display = 'flex';
+    document.getElementById('intro').style.display='flex';
 
 }
 
@@ -959,37 +960,16 @@ function abrirIntro(){
 
 function abrirSite(){
 
-    const tudum =
-    document.getElementById('tudumAudio');
+    document.getElementById('intro').style.display='none';
 
-    tudum.play();
+    document.getElementById('tudumAudio').play();
 
     const musica =
     document.getElementById('music');
 
-    musica.volume = 0;
+    musica.volume = 0.5;
 
     musica.play();
-
-    let volume = 0;
-
-    const fade = setInterval(() => {
-
-        if(volume < 1){
-
-            volume += 0.02;
-
-            musica.volume = volume;
-
-        } else {
-
-            clearInterval(fade);
-
-        }
-
-    }, 200);
-
-    document.getElementById('intro').style.display = 'none';
 
 }
 
@@ -997,20 +977,16 @@ function abrirSite(){
 
 const texto = `
 
-Nossa história começou em 10 de janeiro ❤️
+Nossa história começou no dia 10 de janeiro ❤️
 
 Uma simples reação no story...
 mas que mudou completamente minha vida.
 
 E desde então,
-cada mensagem sua,
-cada sorriso,
+cada sorriso seu,
+cada abraço,
 cada momento,
-ficou guardado dentro do meu coração.
-
-Dia 8 de fevereiro começou oficialmente
-o capítulo mais bonito da minha vida:
-nós ❤️
+ficou marcado dentro do meu coração ❤️
 
 `;
 
@@ -1024,7 +1000,7 @@ function escrever(){
 
         i++;
 
-        setTimeout(escrever, 30);
+        setTimeout(escrever,30);
 
     }
 
@@ -1049,16 +1025,16 @@ function atualizarContador(){
         let diff = agora - data;
 
         let dias =
-        Math.floor(diff / (1000*60*60*24));
+        Math.floor(diff/(1000*60*60*24));
 
         let horas =
-        Math.floor(diff / (1000*60*60)) % 24;
+        Math.floor(diff/(1000*60*60))%24;
 
         let minutos =
-        Math.floor(diff / (1000*60)) % 60;
+        Math.floor(diff/(1000*60))%60;
 
         let segundos =
-        Math.floor(diff / 1000) % 60;
+        Math.floor(diff/1000)%60;
 
         return `
         ${dias} dias,
@@ -1079,95 +1055,13 @@ function atualizarContador(){
 
 setInterval(atualizarContador,1000);
 
-/* FRASES */
-
-const frases = [
-
-'Você é minha paz ❤️',
-'Meu lugar favorito é você ❤️',
-'Meu futuro favorito é com você ❤️',
-'Seu sorriso mudou minha vida ❤️',
-'Você é a melhor parte dos meus dias ❤️'
-
-];
-
-function mostrarFrase(){
-
-    const box =
-    document.getElementById('fraseFlutuante');
-
-    box.innerHTML =
-    frases[Math.floor(Math.random()*frases.length)];
-
-}
-
-setInterval(mostrarFrase,4000);
-
-/* CORAÇÕES */
-
-function criarCoracao(){
-
-    const heart =
-    document.createElement('div');
-
-    heart.classList.add('heart');
-
-    heart.innerHTML = '❤️';
-
-    heart.style.left =
-    Math.random()*100 + 'vw';
-
-    heart.style.fontSize =
-    (Math.random()*20+15) + 'px';
-
-    heart.style.animationDuration =
-    (Math.random()*3+4) + 's';
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-
-        heart.remove();
-
-    },7000);
-
-}
-
-setInterval(criarCoracao,250);
-
 /* VIDEO */
 
 function abrirVideo(){
 
-    const tela =
-    document.getElementById('videoScreen');
+    document.getElementById('videoScreen').style.display='flex';
 
-    const video =
-    document.getElementById('videoPlayer');
-
-    tela.style.display = 'flex';
-
-    video.currentTime = 0;
-
-    setTimeout(() => {
-
-        video.play();
-
-    },3000);
-
-}
-
-function fecharVideo(){
-
-    const tela =
-    document.getElementById('videoScreen');
-
-    const video =
-    document.getElementById('videoPlayer');
-
-    tela.style.display = 'none';
-
-    video.pause();
+    document.getElementById('videoPlayer').play();
 
 }
 
@@ -1175,17 +1069,137 @@ function fecharVideo(){
 
 function abrirCarta(){
 
-    document.getElementById('finalMensagem').style.display = 'flex';
+    document.getElementById('carta').style.display='flex';
 
 }
 
 function fecharCarta(){
 
-    document.getElementById('finalMensagem').style.display = 'none';
+    document.getElementById('carta').style.display='none';
 
 }
 
-/* GALERIA */
+/* TIMELINE */
+
+function abrirTimeline(){
+
+    document.getElementById('timelineScreen').style.display='flex';
+
+}
+
+function fecharTimeline(){
+
+    document.getElementById('timelineScreen').style.display='none';
+
+}
+
+/* QUIZ */
+
+const quiz = [
+
+{
+    pergunta:'Qual foi a data da nossa primeira conversa?',
+    respostas:['10 de Janeiro','8 de Fevereiro'],
+    correta:0
+},
+
+{
+    pergunta:'Qual foi o primeiro capítulo da nossa história?',
+    respostas:['Namoro','Primeira conversa'],
+    correta:0
+},
+
+{
+    pergunta:'Quem é meu lugar favorito?',
+    respostas:['Você ❤️','Ninguém'],
+    correta:0
+},
+
+{
+    pergunta:'Você sabe o quanto eu te amo?',
+    respostas:['Muito ❤️','Pouco'],
+    correta:0
+},
+
+{
+    pergunta:'Quem eu escolheria em milhões de pessoas?',
+    respostas:['Você ❤️','Outra pessoa'],
+    correta:0
+}
+
+];
+
+let perguntaAtual = 0;
+
+function abrirQuiz(){
+
+    document.getElementById('quizScreen').style.display='flex';
+
+    mostrarPergunta();
+
+}
+
+function mostrarPergunta(){
+
+    const q = quiz[perguntaAtual];
+
+    document.getElementById('pergunta').innerHTML =
+    q.pergunta;
+
+    let html = '';
+
+    q.respostas.forEach((resposta,index)=>{
+
+        html += `
+        <button onclick="responder(${index})">
+            ${resposta}
+        </button>
+        `;
+
+    });
+
+    document.getElementById('respostas').innerHTML =
+    html;
+
+}
+
+function responder(index){
+
+    if(index === quiz[perguntaAtual].correta){
+
+        perguntaAtual++;
+
+        if(perguntaAtual < quiz.length){
+
+            mostrarPergunta();
+
+        } else {
+
+            document.getElementById('quizScreen').innerHTML =
+            `
+            <h1>
+                ❤️ Você acertou tudo ❤️
+            </h1>
+
+            <button class="open-btn"
+            onclick="fecharQuiz()">
+                Finalizar
+            </button>
+            `;
+
+        }
+
+    }
+
+}
+
+function fecharQuiz(){
+
+    document.getElementById('quizScreen').style.display='none';
+
+}
+
+/* CHUVA DE FOTOS */
 
 const fotos = [
 
@@ -1196,71 +1210,39 @@ const fotos = [
 'Foto5.jpg',
 'Foto6.jpg',
 'Foto7.jpg',
-'Foto8.jpg',
-'Foto9.jpg',
-'Foto10.jpg',
-'Foto11.jpg',
-'Foto12.jpg',
-'Foto13.jpg',
-'Foto14.jpg',
-'Foto15.jpg',
-'Foto16.jpg',
-'Foto17.jpg',
-'Foto18.jpg',
-'Foto19.jpg',
-'Foto20.jpg'
+'Foto21.jpg',
+'Foto22.jpg',
+'Foto23.jpg'
 
 ];
 
-let fotoAtual = 0;
+function criarFoto(){
 
-let intervaloGaleria;
+    const foto =
+    document.createElement('img');
 
-function abrirGaleria(){
+    foto.src =
+    fotos[Math.floor(Math.random()*fotos.length)];
 
-    const galeria =
-    document.getElementById('galeriaFavorita');
+    foto.classList.add('fotoChuva');
 
-    const slide =
-    document.getElementById('slideFoto');
+    foto.style.left =
+    Math.random()*100 + 'vw';
 
-    galeria.style.display = 'flex';
+    foto.style.animationDuration =
+    (Math.random()*5+5)+'s';
 
-    fotoAtual = 0;
+    document.body.appendChild(foto);
 
-    slide.src = fotos[fotoAtual];
+    setTimeout(()=>{
 
-    intervaloGaleria = setInterval(() => {
+        foto.remove();
 
-        fotoAtual++;
-
-        if(fotoAtual >= fotos.length){
-
-            fotoAtual = 0;
-
-        }
-
-        slide.style.opacity = 0;
-
-        setTimeout(() => {
-
-            slide.src = fotos[fotoAtual];
-
-            slide.style.opacity = 1;
-
-        },300);
-
-    },2000);
+    },10000);
 
 }
 
-function fecharGaleria(){
-
-    document.getElementById('galeriaFavorita').style.display = 'none';
-
-    clearInterval(intervaloGaleria);
-
-}
+setInterval(criarFoto,1200);
 
 </script>
 
