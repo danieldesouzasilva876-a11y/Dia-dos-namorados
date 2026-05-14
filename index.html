@@ -15,7 +15,6 @@
     padding:0;
     box-sizing:border-box;
     font-family:Arial, Helvetica, sans-serif;
-    cursor:none;
 }
 
 html{
@@ -23,37 +22,40 @@ html{
 }
 
 body{
-    background:#000;
-    color:white;
+    background:black;
     overflow-x:hidden;
+    color:white;
 }
 
-/* CURSOR */
+/* BARRAS CINEMA */
 
-#cursor{
+body::before,
+body::after{
 
-    width:25px;
-    height:25px;
+    content:'';
 
     position:fixed;
 
-    border-radius:50%;
+    width:100%;
+    height:35px;
 
-    background:#ff2d55;
+    background:black;
 
-    pointer-events:none;
-
-    z-index:999999999;
-
-    box-shadow:0 0 20px #ff2d55;
-
-    transform:translate(-50%,-50%);
+    z-index:99999999;
 
 }
 
-/* LOADING */
+body::before{
+    top:0;
+}
 
-#loadingScreen{
+body::after{
+    bottom:0;
+}
+
+/* INTRO NETFLIX */
+
+#netflixIntro{
 
     position:fixed;
 
@@ -68,126 +70,38 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
 
-    z-index:9999999999;
+    z-index:999999999;
 
 }
 
-.loadingLogo{
+.netflixLogo{
 
     color:#E50914;
 
-    font-size:5rem;
+    font-size:6rem;
 
     font-weight:bold;
 
-    animation:pulse 1.5s infinite;
+    letter-spacing:10px;
+
+    text-shadow:0 0 40px rgba(229,9,20,0.8);
+
+    animation:logoAnim 3s forwards;
 
 }
 
-.loadingBar{
+@keyframes logoAnim{
 
-    width:300px;
-    height:6px;
-
-    background:#222;
-
-    margin-top:30px;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-}
-
-.loadingProgress{
-
-    width:0%;
-
-    height:100%;
-
-    background:#E50914;
-
-    animation:loading 4s forwards;
-
-}
-
-.loadingText{
-
-    margin-top:20px;
-
-    color:#aaa;
-
-    letter-spacing:3px;
-
-}
-
-@keyframes loading{
-
-    from{
-        width:0%;
+    0%{
+        transform:scale(0.5);
+        opacity:0;
     }
 
-    to{
-        width:100%;
+    100%{
+        transform:scale(1);
+        opacity:1;
     }
-
-}
-
-/* PERFIL */
-
-#perfilScreen{
-
-    position:fixed;
-
-    width:100%;
-    height:100vh;
-
-    background:#111;
-
-    display:none;
-
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-
-    z-index:99999999;
-
-}
-
-.perfil{
-
-    text-align:center;
-
-    cursor:pointer;
-
-    transition:0.3s;
-
-}
-
-.perfil:hover{
-    transform:scale(1.05);
-}
-
-.perfil img{
-
-    width:180px;
-    height:180px;
-
-    border-radius:20px;
-
-    border:4px solid #E50914;
-
-    object-fit:cover;
-
-}
-
-.perfil h2{
-
-    margin-top:20px;
-
-    font-size:2rem;
 
 }
 
@@ -201,7 +115,7 @@ body{
     height:100vh;
 
     background:
-    linear-gradient(to bottom,#000000cc,#000),
+    linear-gradient(to bottom, #000000cc, #000000),
     url('Foto1.jpg') center/cover;
 
     display:none;
@@ -212,15 +126,19 @@ body{
 
     z-index:9999999;
 
+    transition:1s;
+
 }
 
 .intro-title{
 
-    font-size:2.5rem;
+    font-size:2.8rem;
 
     margin-bottom:30px;
 
     text-align:center;
+
+    padding:20px;
 
 }
 
@@ -229,7 +147,6 @@ body{
     padding:18px 40px;
 
     border:none;
-
     border-radius:10px;
 
     background:#E50914;
@@ -238,14 +155,20 @@ body{
 
     font-size:1.2rem;
 
+    cursor:pointer;
+
     transition:0.3s;
 
+    box-shadow:0 0 25px rgba(229,9,20,0.8);
+
     animation:pulse 1.5s infinite;
+
+    margin-top:20px;
 
 }
 
 .open-btn:hover{
-    transform:scale(1.05);
+    transform:scale(1.08);
 }
 
 @keyframes pulse{
@@ -280,18 +203,22 @@ body{
 
     font-weight:bold;
 
+    letter-spacing:2px;
+
 }
 
 /* BANNER */
 
 .banner{
 
+    position:relative;
+
     min-height:100vh;
 
     background:
     linear-gradient(to right,
-    rgba(0,0,0,0.95) 20%,
-    rgba(0,0,0,0.4)),
+    rgba(0,0,0,0.97) 20%,
+    rgba(0,0,0,0.45)),
     url('Foto2.jpg') center/cover no-repeat;
 
     display:flex;
@@ -299,10 +226,25 @@ body{
 
     padding:60px;
 
+    animation:zoomBg 20s infinite alternate;
+
+}
+
+@keyframes zoomBg{
+
+    from{
+        background-size:100%;
+    }
+
+    to{
+        background-size:110%;
+    }
+
 }
 
 .content{
     max-width:850px;
+    z-index:2;
 }
 
 .netflix{
@@ -333,17 +275,15 @@ h1{
 
 }
 
-/* BOTÕES */
-
 .buttons{
 
     display:flex;
 
     gap:15px;
 
-    flex-wrap:wrap;
-
     margin-bottom:35px;
+
+    flex-wrap:wrap;
 
 }
 
@@ -357,12 +297,10 @@ h1{
 
     font-size:1rem;
 
+    cursor:pointer;
+
     transition:0.3s;
 
-}
-
-.btn:hover{
-    transform:scale(1.05);
 }
 
 .play{
@@ -370,41 +308,32 @@ h1{
     color:black;
 }
 
+.play:hover{
+    transform:scale(1.05);
+}
+
 .list{
     background:#444;
     color:white;
 }
 
-.secret{
-    background:#E50914;
-    color:white;
+.list:hover{
+    background:#666;
 }
-
-.timelineBtn{
-    background:#ff2d55;
-    color:white;
-}
-
-.quizBtn{
-    background:#7928ca;
-    color:white;
-}
-
-/* TEXTO */
 
 .text{
 
-    font-size:1.2rem;
+    font-size:1.25rem;
 
-    line-height:1.9;
+    line-height:2;
 
     color:#ddd;
+
+    min-height:450px;
 
     white-space:pre-line;
 
 }
-
-/* CONTADOR */
 
 .counter{
 
@@ -412,17 +341,30 @@ h1{
 
     color:#ffb3c1;
 
-    line-height:2;
+    line-height:1.8;
+
+    font-size:1.1rem;
 
 }
 
-/* CONTADOR ESPECIAL */
+/* FRASES */
 
-.specialCounter{
+#fraseFlutuante{
 
-    margin-top:20px;
+    position:fixed;
 
-    color:#ff4d6d;
+    top:80px;
+    right:20px;
+
+    background:rgba(0,0,0,0.7);
+
+    padding:15px 20px;
+
+    border-radius:10px;
+
+    color:#ffb3c1;
+
+    z-index:999999;
 
     font-size:1rem;
 
@@ -432,6 +374,11 @@ h1{
 
 .section{
     padding:50px;
+}
+
+.section h2{
+    margin-bottom:25px;
+    font-size:2rem;
 }
 
 .cards{
@@ -447,12 +394,23 @@ h1{
 .card{
 
     min-width:240px;
+
     height:140px;
 
     border-radius:10px;
 
     overflow:hidden;
 
+    position:relative;
+
+    transition:0.3s;
+
+    cursor:pointer;
+
+}
+
+.card:hover{
+    transform:scale(1.08);
 }
 
 .card img{
@@ -464,164 +422,16 @@ h1{
 
 }
 
-/* CHUVA DE FOTOS */
+.card span{
 
-.fotoChuva{
+    position:absolute;
 
-    position:fixed;
+    bottom:10px;
+    left:10px;
 
-    top:-200px;
+    font-weight:bold;
 
-    width:120px;
-    height:160px;
-
-    object-fit:cover;
-
-    border-radius:10px;
-
-    opacity:0.15;
-
-    z-index:1;
-
-    animation:cair linear forwards;
-
-}
-
-@keyframes cair{
-
-    to{
-        transform:translateY(120vh) rotate(360deg);
-    }
-
-}
-
-/* TIMELINE */
-
-#timelineScreen{
-
-    position:fixed;
-
-    width:100%;
-    height:100vh;
-
-    background:black;
-
-    display:none;
-
-    justify-content:center;
-    align-items:center;
-
-    flex-direction:column;
-
-    z-index:999999999;
-
-}
-
-.timeline{
-
-    border-left:4px solid #E50914;
-
-    padding-left:30px;
-
-}
-
-.timeline div{
-
-    margin:30px 0;
-
-    font-size:1.3rem;
-
-}
-
-/* QUIZ */
-
-#quizScreen{
-
-    position:fixed;
-
-    width:100%;
-    height:100vh;
-
-    background:black;
-
-    display:none;
-
-    justify-content:center;
-    align-items:center;
-
-    flex-direction:column;
-
-    z-index:999999999;
-
-    padding:20px;
-
-    text-align:center;
-
-}
-
-.quizBox{
-
-    max-width:700px;
-
-}
-
-.quizBox h2{
-
-    margin-bottom:30px;
-
-}
-
-.quizBox button{
-
-    margin:10px;
-
-    padding:15px 25px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#E50914;
-
-    color:white;
-
-}
-
-/* CARTA */
-
-#carta{
-
-    display:none;
-
-    position:fixed;
-
-    width:100%;
-    height:100vh;
-
-    background:black;
-
-    justify-content:center;
-    align-items:center;
-
-    flex-direction:column;
-
-    text-align:center;
-
-    padding:30px;
-
-    z-index:999999999;
-
-}
-
-#carta p{
-
-    max-width:900px;
-
-    line-height:2;
-
-    color:#ffb3c1;
-
-    font-size:1.3rem;
+    font-size:1rem;
 
 }
 
@@ -631,6 +441,9 @@ h1{
 
     position:fixed;
 
+    top:0;
+    left:0;
+
     width:100%;
     height:100vh;
 
@@ -641,7 +454,7 @@ h1{
     justify-content:center;
     align-items:center;
 
-    z-index:99999999;
+    z-index:999999;
 
 }
 
@@ -650,22 +463,137 @@ h1{
     width:90%;
     max-width:1200px;
 
+    border-radius:10px;
+
 }
 
-/* RESPONSIVO */
+.fecharVideo{
+
+    position:absolute;
+
+    top:50px;
+    right:20px;
+
+    width:50px;
+    height:50px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#E50914;
+
+    color:white;
+
+    font-size:1.2rem;
+
+    cursor:pointer;
+
+}
+
+/* FINAL */
+
+#finalMensagem{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:black;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+    z-index:99999999;
+
+    text-align:center;
+
+    padding:20px;
+
+    overflow:auto;
+
+}
+
+#finalMensagem h2{
+
+    font-size:3rem;
+
+    margin-bottom:20px;
+
+}
+
+#finalMensagem p{
+
+    font-size:1.3rem;
+
+    color:#ffb3c1;
+
+    line-height:2;
+
+    max-width:900px;
+
+}
+
+/* CORAÇÕES */
+
+.heart{
+
+    position:fixed;
+
+    color:#ff4d6d;
+
+    opacity:0.7;
+
+    z-index:999;
+
+    animation:subir linear infinite;
+
+}
+
+@keyframes subir{
+
+    from{
+
+        transform:translateY(100vh);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:translateY(-120px);
+
+        opacity:1;
+
+    }
+
+}
 
 @media(max-width:768px){
-
-    h1{
-        font-size:3rem;
-    }
 
     .banner{
         padding:25px;
     }
 
+    h1{
+        font-size:3rem;
+    }
+
     .text{
         font-size:1rem;
+    }
+
+    .intro-title{
+        font-size:2rem;
     }
 
 }
@@ -676,36 +604,12 @@ h1{
 
 <body>
 
-<div id="cursor"></div>
+<!-- INTRO NETFLIX -->
 
-<!-- LOADING -->
+<div id="netflixIntro">
 
-<div id="loadingScreen">
-
-    <div class="loadingLogo">
+    <div class="netflixLogo">
         NETFLIX
-    </div>
-
-    <div class="loadingBar">
-        <div class="loadingProgress"></div>
-    </div>
-
-    <div class="loadingText">
-        Carregando nossa história...
-    </div>
-
-</div>
-
-<!-- PERFIL -->
-
-<div id="perfilScreen">
-
-    <div class="perfil" onclick="abrirIntro()">
-
-        <img src="Foto1.jpg">
-
-        <h2>Júlia ❤️</h2>
-
     </div>
 
 </div>
@@ -715,7 +619,7 @@ h1{
 <div id="intro">
 
     <div class="intro-title">
-        Uma surpresa feita especialmente para você ❤️
+        Uma surpresa especial para você ❤️
     </div>
 
     <button class="open-btn" onclick="abrirSite()">
@@ -723,6 +627,10 @@ h1{
     </button>
 
 </div>
+
+<!-- FRASES -->
+
+<div id="fraseFlutuante"></div>
 
 <!-- NAV -->
 
@@ -758,20 +666,8 @@ h1{
                 ▶ Assistir
             </button>
 
-            <button class="btn list">
-                ❤️ Favorito
-            </button>
-
-            <button class="btn secret" onclick="abrirCarta()">
-                🔒 Carta secreta
-            </button>
-
-            <button class="btn timelineBtn" onclick="abrirTimeline()">
-                ⏳ Linha do tempo
-            </button>
-
-            <button class="btn quizBtn" onclick="abrirQuiz()">
-                🎮 Quiz
+            <button class="btn list" onclick="abrirFinal()">
+                ❤️ Carta secreta
             </button>
 
         </div>
@@ -790,14 +686,6 @@ h1{
 
         </div>
 
-        <div class="specialCounter">
-
-            ❤️ 999999 pensamentos em você  
-            ❤️ 99999 saudades suas  
-            ❤️ infinito amor por você  
-
-        </div>
-
     </div>
 
 </section>
@@ -806,104 +694,110 @@ h1{
 
 <section class="section">
 
+    <h2>Momentos especiais ❤️</h2>
+
     <div class="cards">
 
-        <div class="card"><img src="Foto1.jpg"></div>
-        <div class="card"><img src="Foto2.jpg"></div>
-        <div class="card"><img src="Foto3.jpg"></div>
-        <div class="card"><img src="Foto4.jpg"></div>
-        <div class="card"><img src="Foto5.jpg"></div>
-        <div class="card"><img src="Foto6.jpg"></div>
-        <div class="card"><img src="Foto7.jpg"></div>
-        <div class="card"><img src="Foto21.jpg"></div>
-        <div class="card"><img src="Foto22.jpg"></div>
-        <div class="card"><img src="Foto23.jpg"></div>
+        <div class="card"><img src="Foto1.jpg"><span>Nosso começo</span></div>
+        <div class="card"><img src="Foto2.jpg"><span>Seu sorriso</span></div>
+        <div class="card"><img src="Foto3.jpg"><span>Minha paz</span></div>
+        <div class="card"><img src="Foto4.jpg"><span>Meu amor</span></div>
+        <div class="card"><img src="Foto5.jpg"><span>Você ❤️</span></div>
+        <div class="card"><img src="Foto6.jpg"><span>Nós ❤️</span></div>
+        <div class="card"><img src="Foto7.jpg"><span>Pra sempre</span></div>
 
     </div>
 
 </section>
 
-<!-- TIMELINE -->
-
-<div id="timelineScreen">
-
-    <div class="timeline">
-
-        <div>
-            ❤️ 10 de Janeiro — Primeira conversa
-        </div>
-
-        <div>
-            💍 8 de Fevereiro — Namoro
-        </div>
-
-        <div>
-            🥰 Primeiro encontro
-        </div>
-
-    </div>
-
-    <button class="open-btn" onclick="fecharTimeline()">
-        ❤️ Voltar
-    </button>
-
-</div>
-
-<!-- QUIZ -->
-
-<div id="quizScreen">
-
-    <div class="quizBox">
-
-        <h2 id="pergunta">
-            Pergunta
-        </h2>
-
-        <div id="respostas"></div>
-
-    </div>
-
-</div>
-
-<!-- CARTA -->
-
-<div id="carta">
-
-    <h1>
-        ❤️ Carta para você ❤️
-    </h1>
-
-    <p>
-
-        E se eu pudesse escolher alguém em milhões de pessoas...
-
-        eu escolheria você todas as vezes ❤️
-
-        Porque foi no seu abraço que encontrei paz.
-        Foi no seu sorriso que encontrei felicidade.
-
-        Você mudou meus dias,
-        meu coração,
-        meu futuro
-        e a minha vida ❤️
-
-    </p>
-
-    <button class="open-btn" onclick="fecharCarta()">
-        ❤️ Voltar
-    </button>
-
-</div>
-
 <!-- VIDEO -->
 
 <div id="videoScreen">
+
+    <button class="fecharVideo" onclick="fecharVideo()">
+        ✖
+    </button>
 
     <video id="videoPlayer" controls>
 
         <source src="video.mp4" type="video/mp4">
 
     </video>
+
+</div>
+
+<!-- FINAL -->
+
+<div id="finalMensagem">
+
+    <h2>
+        ❤️ Carta secreta ❤️
+    </h2>
+
+    <p>
+
+Se um dia me perguntassem qual foi uma das melhores coisa que aconteceu na minha vida...
+
+eu responderia sem pensar duas vezes: quando aceitei Jesus.
+e depois? aaaaah depois....
+depois foi ter encontrado você ❤️
+
+Porque, antes de você,
+os dias eram apenas dias.
+
+Mas depois que você chegou,
+tudo ganhou cor,
+sentido,
+felicidade
+e amor.
+
+Foi no seu sorriso que eu encontrei brilho encantador.
+Foi no seu abraço que eu encontrei conforto.
+Foi no seu coração que eu encontrei o meu lugar favorito ❤️
+
+Você mudou a minha rotina,
+os meus pensamentos,
+o meu jeito de sorrir,
+e até a forma como eu imagino o meu futuro.
+
+Hoje,
+quando penso em felicidade,
+eu penso em você.
+
+Quando penso em amor,
+eu penso em você.
+
+Quando penso em futuro,
+eu imagino você ao meu lado ❤️
+
+E se eu pudesse escolher alguém entre milhões de pessoas no mundo inteiro...
+
+eu ainda escolheria você.
+
+Todas as vezes.
+Sem hesitar.
+Sem dúvidas.
+Em qualquer universo,
+em qualquer vida,
+em qualquer lugar ❤️
+
+Porque amar você
+foi a coisa mais linda
+que já aconteceu comigo.
+
+Eu amo você infinitamente,
+minha princesa ❤️
+
+Repetir novamente, pra você saber saber que tenho certeza do que falo.
+minha Jujubs. 
+minha morena.
+minha baixinha ❤️
+
+    </p>
+
+    <button onclick="fecharFinal()" class="open-btn">
+        ❤️ Voltar
+    </button>
 
 </div>
 
@@ -919,57 +813,113 @@ h1{
 
 <script>
 
-/* LOADING */
+/* INTRO NETFLIX */
 
 window.onload = () => {
 
     setTimeout(() => {
 
-        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('netflixIntro').style.display = 'none';
 
-        document.getElementById('perfilScreen').style.display = 'flex';
+        document.getElementById('intro').style.display = 'flex';
 
-    },4000);
+    }, 3000);
 
 };
-
-/* CURSOR */
-
-const cursor =
-document.getElementById('cursor');
-
-document.addEventListener('mousemove', e => {
-
-    cursor.style.left = e.clientX + 'px';
-
-    cursor.style.top = e.clientY + 'px';
-
-});
-
-/* PERFIL */
-
-function abrirIntro(){
-
-    document.getElementById('perfilScreen').style.display='none';
-
-    document.getElementById('intro').style.display='flex';
-
-}
 
 /* ABRIR SITE */
 
 function abrirSite(){
 
-    document.getElementById('intro').style.display='none';
+    const tudum =
+    document.getElementById('tudumAudio');
 
-    document.getElementById('tudumAudio').play();
+    tudum.volume = 1;
+
+    tudum.play();
 
     const musica =
     document.getElementById('music');
 
-    musica.volume = 0.5;
+    musica.volume = 0;
 
     musica.play();
+
+    let volume = 0;
+
+    const fade = setInterval(() => {
+
+        if(volume < 1){
+
+            volume += 0.02;
+
+            musica.volume = volume;
+
+        } else {
+
+            clearInterval(fade);
+
+        }
+
+    }, 200);
+
+    document.getElementById('intro').style.opacity = '0';
+
+    setTimeout(() => {
+
+        document.getElementById('intro').style.display = 'none';
+
+    }, 1000);
+
+}
+
+/* VIDEO */
+
+function abrirVideo(){
+
+    const tela =
+    document.getElementById('videoScreen');
+
+    const video =
+    document.getElementById('videoPlayer');
+
+    tela.style.display = 'flex';
+
+    video.currentTime = 0;
+
+    video.play();
+
+    if(video.requestFullscreen){
+        video.requestFullscreen();
+    }
+
+}
+
+function fecharVideo(){
+
+    const tela =
+    document.getElementById('videoScreen');
+
+    const video =
+    document.getElementById('videoPlayer');
+
+    tela.style.display = 'none';
+
+    video.pause();
+
+}
+
+/* FINAL */
+
+function abrirFinal(){
+
+    document.getElementById('finalMensagem').style.display = 'flex';
+
+}
+
+function fecharFinal(){
+
+    document.getElementById('finalMensagem').style.display = 'none';
 
 }
 
@@ -979,14 +929,83 @@ const texto = `
 
 Nossa história começou no dia 10 de janeiro ❤️
 
-Uma simples reação no story...
-mas que mudou completamente minha vida.
+Tudo começou com uma simples mensagem:
+"Reagiu ao seu story 😍"
+
+Era exatamente um sábado,
+às 11h53 da manhã.
+
+E foi naquele momento...
+que começava a minha série favorita ❤️
+
+A nossa história.
+
+Começamos a conversar,
+e a cada dia que passava,
+o seu jeitinho marcante me deixava ainda mais apaixonado.
+
+Lembro de cada detalhe.
+
+Lembro do nosso primeiro assunto.
+Lembro da primeira foto que você me enviou.
+Lembro das nossas conversas.
+Lembro das risadas.
+Lembro de tudo ❤️
+
+Porque cada detalhe seu ficou marcado no meu coração.
+
+Então chegou o dia 8 de fevereiro ❤️
+
+O primeiro capítulo da nossa história oficialmente juntos.
+
+O nosso namoro.
 
 E desde então,
-cada sorriso seu,
+eu vivo com um sorriso no rosto.
+
+Ganhei carinho,
+ganhei mais felicidade,
+mas principalmente...
+
+ganhei você ❤️
+
+Cada mensagem sua,
+cada beijo,
 cada abraço,
-cada momento,
-ficou marcado dentro do meu coração ❤️
+cada cheiro,
+cada momento ao seu lado,
+ficou guardado dentro de mim de uma forma impossível de explicar.
+
+Você virou minha conversa favorita.
+Meu amor.
+Meu lugar favorito ❤️
+
+
+Você trouxe mais felicidade pros meus dias,
+e amor pro meu coração ❤️
+
+Esse site foi feito especialmente para você.
+
+Cada detalhe aqui
+foi pensado com carinho,
+porque você merece sentir o quanto é importante pra mim ❤️
+
+E se eu pudesse escolher alguém entre milhões de pessoas no mundo inteiro...
+
+eu ainda escolheria você.
+
+Todas as vezes.
+Sem hesitar.
+Sem dúvidas.
+Em qualquer universo.
+Em qualquer lugar ❤️
+
+Porque amar você
+foi a coisa mais linda
+que já aconteceu comigo.
+
+Eu amo você infinitamente,
+minha princesa ❤️
 
 `;
 
@@ -996,11 +1015,12 @@ function escrever(){
 
     if(i < texto.length){
 
-        document.getElementById('typing').innerHTML += texto.charAt(i);
+        document.getElementById('typing').innerHTML +=
+        texto.charAt(i);
 
         i++;
 
-        setTimeout(escrever,30);
+        setTimeout(escrever, 28);
 
     }
 
@@ -1008,7 +1028,7 @@ function escrever(){
 
 escrever();
 
-/* CONTADOR */
+/* CONTADORES */
 
 function atualizarContador(){
 
@@ -1025,16 +1045,16 @@ function atualizarContador(){
         let diff = agora - data;
 
         let dias =
-        Math.floor(diff/(1000*60*60*24));
+        Math.floor(diff / (1000 * 60 * 60 * 24));
 
         let horas =
-        Math.floor(diff/(1000*60*60))%24;
+        Math.floor(diff / (1000 * 60 * 60)) % 24;
 
         let minutos =
-        Math.floor(diff/(1000*60))%60;
+        Math.floor(diff / (1000 * 60)) % 60;
 
         let segundos =
-        Math.floor(diff/1000)%60;
+        Math.floor(diff / 1000) % 60;
 
         return `
         ${dias} dias,
@@ -1053,196 +1073,67 @@ function atualizarContador(){
 
 }
 
-setInterval(atualizarContador,1000);
+setInterval(atualizarContador, 1000);
 
-/* VIDEO */
+/* CORAÇÕES */
 
-function abrirVideo(){
+function criarCoracao(){
 
-    document.getElementById('videoScreen').style.display='flex';
+    const heart =
+    document.createElement('div');
 
-    document.getElementById('videoPlayer').play();
+    heart.classList.add('heart');
 
-}
+    heart.innerHTML = '❤️';
 
-/* CARTA */
+    heart.style.left =
+    Math.random() * 100 + 'vw';
 
-function abrirCarta(){
+    heart.style.fontSize =
+    (Math.random() * 20 + 15) + 'px';
 
-    document.getElementById('carta').style.display='flex';
+    heart.style.animationDuration =
+    (Math.random() * 3 + 4) + 's';
 
-}
+    document.body.appendChild(heart);
 
-function fecharCarta(){
+    setTimeout(() => {
 
-    document.getElementById('carta').style.display='none';
+        heart.remove();
 
-}
-
-/* TIMELINE */
-
-function abrirTimeline(){
-
-    document.getElementById('timelineScreen').style.display='flex';
+    }, 7000);
 
 }
 
-function fecharTimeline(){
+setInterval(criarCoracao, 250);
 
-    document.getElementById('timelineScreen').style.display='none';
+/* FRASES */
 
-}
+const frases = [
 
-/* QUIZ */
-
-const quiz = [
-
-{
-    pergunta:'Qual foi a data da nossa primeira conversa?',
-    respostas:['10 de Janeiro','8 de Fevereiro'],
-    correta:0
-},
-
-{
-    pergunta:'Qual foi o primeiro capítulo da nossa história?',
-    respostas:['Namoro','Primeira conversa'],
-    correta:0
-},
-
-{
-    pergunta:'Quem é meu lugar favorito?',
-    respostas:['Você ❤️','Ninguém'],
-    correta:0
-},
-
-{
-    pergunta:'Você sabe o quanto eu te amo?',
-    respostas:['Muito ❤️','Pouco'],
-    correta:0
-},
-
-{
-    pergunta:'Quem eu escolheria em milhões de pessoas?',
-    respostas:['Você ❤️','Outra pessoa'],
-    correta:0
-}
+    'Você é meu lugar favorito ❤️',
+    'Seu sorriso é o meu❤️',
+    'Meu futuro favorito é com você ❤️',
+    'Eu penso em você todos os dias ❤️',
+    'Você é minha jujubs ❤️'
 
 ];
 
-let perguntaAtual = 0;
+function mostrarFrase(){
 
-function abrirQuiz(){
+    const fraseBox =
+    document.getElementById('fraseFlutuante');
 
-    document.getElementById('quizScreen').style.display='flex';
+    const random =
+    frases[Math.floor(Math.random() * frases.length)];
 
-    mostrarPergunta();
-
-}
-
-function mostrarPergunta(){
-
-    const q = quiz[perguntaAtual];
-
-    document.getElementById('pergunta').innerHTML =
-    q.pergunta;
-
-    let html = '';
-
-    q.respostas.forEach((resposta,index)=>{
-
-        html += `
-        <button onclick="responder(${index})">
-            ${resposta}
-        </button>
-        `;
-
-    });
-
-    document.getElementById('respostas').innerHTML =
-    html;
+    fraseBox.innerHTML = random;
 
 }
 
-function responder(index){
+mostrarFrase();
 
-    if(index === quiz[perguntaAtual].correta){
-
-        perguntaAtual++;
-
-        if(perguntaAtual < quiz.length){
-
-            mostrarPergunta();
-
-        } else {
-
-            document.getElementById('quizScreen').innerHTML =
-            `
-            <h1>
-                ❤️ Você acertou tudo ❤️
-            </h1>
-
-            <button class="open-btn"
-            onclick="fecharQuiz()">
-                Finalizar
-            </button>
-            `;
-
-        }
-
-    }
-
-}
-
-function fecharQuiz(){
-
-    document.getElementById('quizScreen').style.display='none';
-
-}
-
-/* CHUVA DE FOTOS */
-
-const fotos = [
-
-'Foto1.jpg',
-'Foto2.jpg',
-'Foto3.jpg',
-'Foto4.jpg',
-'Foto5.jpg',
-'Foto6.jpg',
-'Foto7.jpg',
-'Foto21.jpg',
-'Foto22.jpg',
-'Foto23.jpg'
-
-];
-
-function criarFoto(){
-
-    const foto =
-    document.createElement('img');
-
-    foto.src =
-    fotos[Math.floor(Math.random()*fotos.length)];
-
-    foto.classList.add('fotoChuva');
-
-    foto.style.left =
-    Math.random()*100 + 'vw';
-
-    foto.style.animationDuration =
-    (Math.random()*5+5)+'s';
-
-    document.body.appendChild(foto);
-
-    setTimeout(()=>{
-
-        foto.remove();
-
-    },10000);
-
-}
-
-setInterval(criarFoto,1200);
+setInterval(mostrarFrase, 4000);
 
 </script>
 
