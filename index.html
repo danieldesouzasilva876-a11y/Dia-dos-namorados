@@ -538,6 +538,94 @@ h1{
 
 }
 
+/* GALERIA FAVORITA */
+
+#galeriaFavorita{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:black;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:999999999;
+
+    animation:fadeGaleria 0.5s;
+
+}
+
+@keyframes fadeGaleria{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+#slideFoto{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    animation:zoomFoto 2s linear;
+
+    transition:0.3s;
+
+}
+
+@keyframes zoomFoto{
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.05);
+    }
+
+}
+
+.fecharGaleria{
+
+    position:absolute;
+
+    top:40px;
+    right:30px;
+
+    width:55px;
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#E50914;
+
+    color:white;
+
+    font-size:1.2rem;
+
+    cursor:pointer;
+
+    z-index:9999999999;
+
+}
+
 /* CORAÇÕES */
 
 .heart{
@@ -658,7 +746,7 @@ h1{
                 ▶ Assistir
             </button>
 
-            <button class="btn list">
+            <button class="btn list" onclick="abrirGaleria()">
                 ❤️ Favorito
             </button>
 
@@ -728,6 +816,18 @@ h1{
     </div>
 
 </section>
+
+<!-- GALERIA FAVORITA -->
+
+<div id="galeriaFavorita">
+
+    <button class="fecharGaleria" onclick="fecharGaleria()">
+        ✖
+    </button>
+
+    <img id="slideFoto" src="Foto1.jpg">
+
+</div>
 
 <!-- VIDEO -->
 
@@ -816,16 +916,12 @@ window.onload = () => {
 
 function abrirSite(){
 
-    /* TUNDUM */
-
     const tudum =
     document.getElementById('tudumAudio');
 
     tudum.volume = 1;
 
     tudum.play();
-
-    /* MÚSICA */
 
     const musica =
     document.getElementById('music');
@@ -851,8 +947,6 @@ function abrirSite(){
         }
 
     }, 200);
-
-    /* FECHAR INTRO */
 
     document.getElementById('intro').style.opacity = '0';
 
@@ -888,8 +982,6 @@ function abrirVideo(){
     if(video.requestFullscreen){
         video.requestFullscreen();
     }
-
-    /* FINAL AUTOMÁTICO */
 
     video.onended = () => {
 
@@ -1078,6 +1170,83 @@ function mostrarFrase(){
 }
 
 setInterval(mostrarFrase, 4000);
+
+/* GALERIA AUTOMÁTICA */
+
+const fotos = [
+
+    'Foto1.jpg',
+    'Foto2.jpg',
+    'Foto3.jpg',
+    'Foto4.jpg',
+    'Foto5.jpg',
+    'Foto6.jpg',
+    'Foto7.jpg',
+    'Foto8.jpg',
+    'Foto9.jpg',
+    'Foto10.jpg',
+    'Foto11.jpg',
+    'Foto12.jpg',
+    'Foto13.jpg',
+    'Foto14.jpg',
+    'Foto15.jpg',
+    'Foto16.jpg',
+    'Foto17.jpg',
+    'Foto18.jpg',
+    'Foto19.jpg',
+    'Foto20.jpg'
+
+];
+
+let fotoAtual = 0;
+
+let intervaloGaleria;
+
+function abrirGaleria(){
+
+    const galeria =
+    document.getElementById('galeriaFavorita');
+
+    const slide =
+    document.getElementById('slideFoto');
+
+    galeria.style.display = 'flex';
+
+    fotoAtual = 0;
+
+    slide.src = fotos[fotoAtual];
+
+    intervaloGaleria = setInterval(() => {
+
+        fotoAtual++;
+
+        if(fotoAtual >= fotos.length){
+
+            fotoAtual = 0;
+
+        }
+
+        slide.style.opacity = 0;
+
+        setTimeout(() => {
+
+            slide.src = fotos[fotoAtual];
+
+            slide.style.opacity = 1;
+
+        }, 300);
+
+    }, 2000);
+
+}
+
+function fecharGaleria(){
+
+    document.getElementById('galeriaFavorita').style.display = 'none';
+
+    clearInterval(intervaloGaleria);
+
+}
 
 </script>
 
